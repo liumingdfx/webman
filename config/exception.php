@@ -12,6 +12,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use app\Exception\ExceptionHandler;
+
 return [
-    '' => support\exception\Handler::class,
+    '' => ExceptionHandler::class,
 ];

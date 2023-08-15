@@ -1,5 +1,7 @@
 <?php
 
+use app\model\User;
+
 return [
     'enable' => true,
     'jwt' => [
@@ -8,11 +10,11 @@ return [
         // access令牌秘钥
         'access_secret_key' => '2022d3d3LmJq',
         // access令牌过期时间，单位：秒。默认 2 小时
-        'access_exp' => 7200,
+        'access_exp' => 60 * 60 * 2,
         // refresh令牌秘钥
         'refresh_secret_key' => '2022KTxigxc9o50c',
         // refresh令牌过期时间，单位：秒。默认 7 天
-        'refresh_exp' => 604800,
+        'refresh_exp' => 60 * 24 * 7,
         // refresh 令牌是否禁用，默认不禁用 false
         'refresh_disable' => false,
         // 令牌签发者
@@ -20,16 +22,19 @@ return [
         // 某个时间点后才能访问，单位秒。（如：30 表示当前时间30秒后才能使用）
         'nbf' => 0,
         // 时钟偏差冗余时间，单位秒。建议这个余地应该不大于几分钟。
-        'leeway' => 60,
+        'leeway' => 10,
         // 单设备登录
         'is_single_device' => false,
         // 缓存令牌时间，单位：秒。默认 7 天
-        'cache_token_ttl' => 604800,
+        'cache_token_ttl' => 60 * 24 * 7,
         // 缓存令牌前缀
         'cache_token_pre' => 'JWT:TOKEN:',
         // 用户信息模型
         'user_model' => function($uid){
-            return [];
+            return User::query()
+                ->select('id','name','email','created_at')
+                ->where('id', $uid)
+                ->first();
         },
 
         /**

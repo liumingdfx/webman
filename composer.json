@@ -32,7 +32,8 @@
     "pxianyu/migrations": "^1.0",
     "webman/console": "^1.2.24",
     "yzh52521/webman-hash": "^1.0",
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "max/var-dumper": "^0.1.1"
   },
   "suggest": {
     "ext-event": "For better performance. "

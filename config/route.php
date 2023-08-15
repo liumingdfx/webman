@@ -14,6 +14,7 @@
 
 use Webman\Route;
 use app\controller\AuthController;
+use app\controller\UserController;
 use app\controller\IndexController;
 
 Route::get('/home', [IndexController::class, 'view']);
@@ -22,6 +23,11 @@ Route::post('/send', [IndexController::class, 'index']);
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/refresh', [AuthController::class, 'refreshToken']);
+
+Route::get('/user', [UserController::class,'user']);
+
+
 
 
 
