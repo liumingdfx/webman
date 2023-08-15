@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <title>webman</title>
+
+</head>
+<body>
+hello world
+</body>
+
+<script src="/plugin/webman/push/push.js"> </script>
+<script>
+    var connection = new Push({
+        url: 'ws://127.0.0.1:3131', // websocket地址
+        app_key: '25c00d907bb5f71047900d1c842976aa',
+        auth: '/plugin/webman/push/auth' // 订阅鉴权(仅限于私有频道)
+    });
+    // 假设用户uid为1
+    var uid = 1;
+    // 浏览器监听user-1频道的消息，也就是用户uid为1的用户消息
+    var user_channel = connection.subscribe('user-' + uid);
+
+    // 当user-1频道有message事件的消息时
+    user_channel.on('message', function(data) {
+        // data里是消息内容
+        console.log(data);
+    });
+    // 当user-1频道有friendApply事件时消息时
+    user_channel.on('friendApply', function (data) {
+        // data里是好友申请相关信息
+        console.log(data);
+    });
+
+    // 假设群组id为2
+    var group_id = 2;
+    // 浏览器监听group-2频道的消息，也就是监听群组2的群消息
+    var group_channel = connection.subscribe('group-' + group_id);
+    // 当群组2有message消息事件时
+    group_channel.on('message', function(data) {
+        // data里是消息内容
+        console.log(data);
+    });
+
+    var user_private_channel = connection.subscribe('private-user-' + uid);
+</script>
+</html>
