@@ -12,10 +12,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+
+use app\middleware\Throttle;
 use app\middleware\AuthCheckMiddleware;
 
 return [
     '' =>[
-        AuthCheckMiddleware::class
+        AuthCheckMiddleware::class,
+        Throttle::class
     ]
 ];

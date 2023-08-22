@@ -33,7 +33,11 @@
     "webman/console": "^1.2.24",
     "yzh52521/webman-hash": "^1.0",
     "vlucas/phpdotenv": "^5.4",
-    "max/var-dumper": "^0.1.1"
+    "max/var-dumper": "^0.1.1",
+    "yzh52521/webman-throttle": "^1.0",
+    "illuminate/redis": "^10.17",
+    "illuminate/events": "^10.18",
+    "symfony/cache": "^6.3"
   },
   "suggest": {
     "ext-event": "For better performance. "

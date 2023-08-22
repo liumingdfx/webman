@@ -17,6 +17,8 @@ use app\controller\AuthController;
 use app\controller\UserController;
 use app\controller\IndexController;
 
+Route::get('/test', [IndexController::class, 'test']);
+
 Route::get('/home', [IndexController::class, 'view']);
 Route::post('/send', [IndexController::class, 'index']);
 

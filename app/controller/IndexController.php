@@ -7,6 +7,10 @@ use Webman\Push\Api;
 
 class IndexController
 {
+    protected $noNeedCheckLogin = ['test'];
+    public function test(){
+        return json([123123]);
+    }
     public function index(Request $request)
     {
         $api = new Api(
