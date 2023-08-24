@@ -11,7 +11,7 @@ use Tinywan\Jwt\JwtToken;
 
 class AuthController
 {
-    protected $noNeedCheckLogin = ['login', 'register', 'refreshToken'];
+    protected $noNeedLogin = ['login', 'register', 'refreshToken'];
 
     public function login(Request $request)
     {
@@ -28,9 +28,10 @@ class AuthController
         if (Hash::check($password, $user->password)) {
             //登录成功
             $token = JwtToken::generateToken([
-                                                 'id'    => $user->id,
-                                                 'name'  => $user->name,
-                                                 'email' => $user->email,
+                                                 'id'       => $user->id,
+                                                 'nickname' => $user->nickname,
+                                                 'name'     => $user->name,
+                                                 'email'    => $user->email,
                                              ]);
 
             return json(['message' => '登录成功', 'data' => $token])->withStatus(200);
@@ -69,7 +70,7 @@ class AuthController
     {
         try {
             $token = JwtToken::refreshToken();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return json(['message' => $exception->getMessage()])->withStatus(403);
         }
 

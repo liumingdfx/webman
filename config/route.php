@@ -30,6 +30,10 @@ Route::post('/auth/refresh', [AuthController::class, 'refreshToken']);
 Route::get('/user', [UserController::class,'user']);
 
 
+Route::get('/chat/room', [UserController::class, 'roomList']);
+Route::post('/chat/join', [UserController::class, 'joinRoom']);
+
+
 
 
 

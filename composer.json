@@ -37,7 +37,9 @@
     "yzh52521/webman-throttle": "^1.0",
     "illuminate/redis": "^10.17",
     "illuminate/events": "^10.18",
-    "symfony/cache": "^6.3"
+    "symfony/cache": "^6.3",
+    "webman/gateway-worker": "^1.0",
+    "ext-json": "*"
   },
   "suggest": {
     "ext-event": "For better performance. "

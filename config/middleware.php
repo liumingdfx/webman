@@ -19,6 +19,6 @@ use app\middleware\AuthCheckMiddleware;
 return [
     '' =>[
         AuthCheckMiddleware::class,
-        Throttle::class
+//        Throttle::class
     ]
 ];

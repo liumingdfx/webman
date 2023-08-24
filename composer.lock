@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d78f7d6b73e71adf3b33f99557ecc870",
+    "content-hash": "a4a1ba7841c99dfa0dae2b8c92962c39",
     "packages": [
         {
             "name": "brick/math",
@@ -3794,6 +3794,45 @@
             "time": "2023-07-26T06:31:50+00:00"
         },
         {
+            "name": "webman/gateway-worker",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webman-php/gateway-worker.git",
+                "reference": "0fc07316a755557128a30acca3507b42ec428c14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webman-php/gateway-worker/zipball/0fc07316a755557128a30acca3507b42ec428c14",
+                "reference": "0fc07316a755557128a30acca3507b42ec428c14",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "workerman/gateway-worker": ">=3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Webman\\GatewayWorker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "support": {
+                "issues": "https://github.com/webman-php/gateway-worker/issues",
+                "source": "https://github.com/webman-php/gateway-worker/tree/v1.0.8"
+            },
+            "time": "2023-07-20T09:10:10+00:00"
+        },
+        {
             "name": "webman/push",
             "version": "v1.0.16",
             "source": {
@@ -3831,6 +3870,61 @@
                 "source": "https://github.com/webman-php/push/tree/v1.0.16"
             },
             "time": "2023-06-17T13:34:32+00:00"
+        },
+        {
+            "name": "workerman/gateway-worker",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/GatewayWorker.git",
+                "reference": "3364be5524f3ac49fa2356377ce4c0151371d063"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/GatewayWorker/zipball/3364be5524f3ac49fa2356377ce4c0151371d063",
+                "reference": "3364be5524f3ac49fa2356377ce4c0151371d063",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0",
+                "workerman/workerman": "^4.0.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GatewayWorker\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "communication",
+                "distributed"
+            ],
+            "support": {
+                "issues": "https://github.com/walkor/GatewayWorker/issues",
+                "source": "https://github.com/walkor/GatewayWorker/tree/v3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/walkor",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://www.patreon.com/walkor",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-07-19T10:30:49+00:00"
         },
         {
             "name": "workerman/webman-framework",
@@ -4083,5 +4177,5 @@
         "php": ">=7.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

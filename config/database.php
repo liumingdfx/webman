@@ -17,7 +17,6 @@ return [
     'default' => 'mysql',
     // 各种数据库配置
     'connections' => [
-
         'mysql' => [
             'driver'      => 'mysql',
             'host'        => '127.0.0.1',

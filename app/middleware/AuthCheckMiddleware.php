@@ -19,6 +19,8 @@ use Webman\MiddlewareInterface;
 use Webman\Http\Response;
 use Webman\Http\Request;
 use Firebase\JWT\ExpiredException;
+use Firebase\JWT\SignatureInvalidException;
+use Tinywan\Jwt\Exception\JwtTokenException;
 use Tinywan\Jwt\Exception\JwtTokenExpiredException;
 
 /**
@@ -29,14 +31,10 @@ class AuthCheckMiddleware implements MiddlewareInterface
 {
     public function process(Request $request, callable $handler) : Response
     {
-
-
-
-
         // 通过反射获取控制器哪些方法不需要登录
         $controller = new \ReflectionClass($request->controller);
-        $noNeedLogin = $controller->getDefaultProperties()['noNeedCheckLogin'] ?? [];
-        // 访问的方法需要登录
+        $noNeedLogin = $controller->getDefaultProperties()['noNeedLogin'] ?? [];
+        // 访问的方法不需要登录
         if (in_array($request->action, $noNeedLogin)) {
             // 不需要登录，请求继续向洋葱芯穿越
             return $handler($request);
@@ -47,6 +45,9 @@ class AuthCheckMiddleware implements MiddlewareInterface
         }catch (JwtTokenExpiredException $exception){
             //令牌已过期
             return json(['message' => 'TOKEN EXPIRED'])->withStatus(423);
+        } catch (JwtTokenException $exception) {
+            //token错误
+            return json(['message' => 'Signature verification failed'])->withStatus(401);
         }
 
         if (isset($auth['extend']['id'])) {
