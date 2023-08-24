@@ -1,6 +1,6 @@
 <?php
 return [
-    'enable'       => true,
+    'enable'       => false,
     'websocket'    => 'websocket://0.0.0.0:3131',
     'api'          => 'http://0.0.0.0:3232',
     'app_key'      => '25c00d907bb5f71047900d1c842976aa',

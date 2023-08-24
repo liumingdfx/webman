@@ -23,15 +23,15 @@ Route::get('/home', [IndexController::class, 'view']);
 Route::post('/send', [IndexController::class, 'index']);
 
 
-Route::post('/auth/login', [AuthController::class, 'login']);
-Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/auth/refresh', [AuthController::class, 'refreshToken']);
+Route::post('/api/auth/login', [AuthController::class, 'login']);
+Route::post('/api/auth/register', [AuthController::class, 'register']);
+Route::post('/api/auth/refresh', [AuthController::class, 'refreshToken']);
 
-Route::get('/user', [UserController::class,'user']);
+Route::get('/api/user', [UserController::class,'user']);
 
 
-Route::get('/chat/room', [UserController::class, 'roomList']);
-Route::post('/chat/join', [UserController::class, 'joinRoom']);
+Route::get('/api/chat/room', [UserController::class, 'roomList']);
+Route::post('/api/chat/join', [UserController::class, 'joinRoom']);
 
 
 
