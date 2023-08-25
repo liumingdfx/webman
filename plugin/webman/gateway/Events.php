@@ -61,6 +61,7 @@ class Events
 
         $userInfo = JwtToken::verify(1, $token);;
         $nickname = $userInfo['extend']['nickname'];
+        $avatar = $userInfo['extend']['avatar'];
         $uid      = $userInfo['extend']['id'];
 
         switch ($message['type']) {
@@ -69,7 +70,7 @@ class Events
                 Gateway::joinGroup($client_id, $data['room_id']);
                 // 获取房间用户列表
                 $roomUserList  = Gateway::getUidListByGroup($data['room_id']);
-                $finalUserList = User::query()->whereIn('id', $roomUserList)->get(['id', 'name', 'nickname']);
+                $finalUserList = User::query()->whereIn('id', $roomUserList)->get(['id', 'name','avatar', 'nickname']);
                 // 向房间广播
                 send_to_group($data['room_id'], MsgType::JOIN, "{$nickname}加入房间", [
                     'nickname'    => $nickname,
@@ -88,7 +89,12 @@ class Events
                 ]);
 
                 //将消息存到redis
-                cacheMsg($data['room_id'], ['content' => $data['content'], 'uid' => $uid, 'nickname' => $nickname, 'time' => date('Y-m-d H:i:s')]);
+                cacheMsg($data['room_id'], ['content' => $data['content'],
+                                            'uid' => $uid,
+                                            'nickname' => $nickname,
+                                            'avatar' => $avatar,
+                                            'time' => date('Y-m-d H:i:s')
+                ]);
                 break;
             default:
                 send($client_id, MsgType::SUCCESS, '请求成功', ['client_id' => $client_id]);

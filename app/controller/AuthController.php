@@ -29,6 +29,7 @@ class AuthController
             //登录成功
             $token = JwtToken::generateToken([
                                                  'id'       => $user->id,
+                                                 'avatar'   => $user->avatar,
                                                  'nickname' => $user->nickname,
                                                  'name'     => $user->name,
                                                  'email'    => $user->email,
