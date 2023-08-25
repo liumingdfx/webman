@@ -25,16 +25,18 @@ class Events
         try {
             $userInfo = JwtToken::verify(1, $getData['token']);
         } catch (\Exception $exception) {
-            send($client_id, '账号信息错误，请重新登录', MsgType::LOGIN_ERROR);
+            send($client_id, MsgType::LOGIN_ERROR, '账号信息错误，请重新登录');
             sleep(1); // 延迟一秒断开链接
 
             return Gateway::closeClient($client_id);
         }
         $uid = $userInfo['extend']['id'];
+        $nickname = $userInfo['extend']['nickname'];
+        $avatar = $userInfo['extend']['avatar'];
         echo $uid;
         //重复上线验证
         if (count(Gateway::getClientIdByUid($uid))) {
-            send($client_id, '已经登录，请勿重复登录', MsgType::LOGIN_ERROR);
+            send($client_id, MsgType::LOGIN_REPEAT, '已经登录，请勿重复登录');
             sleep(1); // 延迟一秒断开链接
 
             return Gateway::closeClient($client_id);
@@ -49,14 +51,21 @@ class Events
 
         send($client_id, MsgType::LOGIN, '连接成功', [
             'client_id' => $client_id,
-            'room_list' => $roomList
+            'room_list' => $roomList,
+            'nickname' => $nickname,
+            'avatar' => $avatar
         ]);
     }
 
     public static function onMessage($client_id, $message)
     {
+
         $message = json_decode($message, true);
+
+
+
         $data    = $message['data'] ?? [];
+
         $token   = $data['token'];
 
         $userInfo = JwtToken::verify(1, $token);;
@@ -80,6 +89,14 @@ class Events
                 ]);
                 break;
             case 'send':
+                //将消息存到redis
+                cacheMsg($data['room_id'], ['content' => $data['content'],
+                                            'uid' => $uid,
+                                            'nickname' => $nickname,
+                                            'avatar' => $avatar,
+                                            'time' => date('Y-m-d H:i:s')
+                ]);
+
                 // 用户发送消息
                 send_to_group($data['room_id'], MsgType::SEND_MSG, '发送消息成功', [
                     'send_user_nickname' => $nickname,
@@ -88,13 +105,7 @@ class Events
                     'chat_logs'          => getLogCache($data['room_id'])
                 ]);
 
-                //将消息存到redis
-                cacheMsg($data['room_id'], ['content' => $data['content'],
-                                            'uid' => $uid,
-                                            'nickname' => $nickname,
-                                            'avatar' => $avatar,
-                                            'time' => date('Y-m-d H:i:s')
-                ]);
+
                 break;
             default:
                 send($client_id, MsgType::SUCCESS, '请求成功', ['client_id' => $client_id]);

@@ -11,4 +11,5 @@ class MsgType{
     const JOIN = 'join';
     const SEND_MSG = 'send';
     const LEAVE = 'leave';
+    const LOGIN_REPEAT = 'login_repeat';
 }
