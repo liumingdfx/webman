@@ -40,3 +40,21 @@ function send_to_group($roomId,string $type, string $msg = '请求成功', array
                     ], JSON_UNESCAPED_UNICODE)
     );
 }
+
+
+function cacheMsg($roomId, $data)
+{
+    \support\Redis::lPush('chatLog:'.$roomId, json_encode($data));
+}
+
+function getLogCache($roomId): array
+{
+    $res =  \support\Redis::lRange('chatLog:'.$roomId,0 , -1);
+
+    foreach ($res as &$re)
+    {
+        $re = json_decode($re, true);
+    }
+
+    return array_reverse($res);
+}

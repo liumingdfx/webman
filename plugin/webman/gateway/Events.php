@@ -49,7 +49,7 @@ class Events
 
         send($client_id, MsgType::LOGIN, '连接成功', [
             'client_id' => $client_id,
-            'room_list' => $roomList,
+            'room_list' => $roomList
         ]);
     }
 
@@ -61,6 +61,7 @@ class Events
 
         $userInfo = JwtToken::verify(1, $token);;
         $nickname = $userInfo['extend']['nickname'];
+        $uid      = $userInfo['extend']['id'];
 
         switch ($message['type']) {
             case 'join':
@@ -74,15 +75,20 @@ class Events
                     'nickname'    => $nickname,
                     'online_num'  => count($finalUserList),
                     'online_list' => $finalUserList,
+                    'chat_logs'   => getLogCache($data['room_id'])
                 ]);
                 break;
             case 'send':
-                // 广播到房间
+                // 用户发送消息
                 send_to_group($data['room_id'], MsgType::SEND_MSG, '发送消息成功', [
                     'send_user_nickname' => $nickname,
                     'send_user_id'       => 1,
                     'send_content'       => $data['content'],
+                    'chat_logs'          => getLogCache($data['room_id'])
                 ]);
+
+                //将消息存到redis
+                cacheMsg($data['room_id'], ['content' => $data['content'], 'uid' => $uid, 'nickname' => $nickname, 'time' => date('Y-m-d H:i:s')]);
                 break;
             default:
                 send($client_id, MsgType::SUCCESS, '请求成功', ['client_id' => $client_id]);
